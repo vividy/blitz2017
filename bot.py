@@ -71,7 +71,7 @@ class RandomBot(Bot):
     def move(self, state):
         try:
             return self.move_less_one(state)
-        except Exception as e:
+        except :
             print(e)
             dirs = ['Stay', 'North', 'South', 'East', 'West']
             return choice(dirs)
