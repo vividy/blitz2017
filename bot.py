@@ -1,7 +1,7 @@
 from random import choice
 from game import Game
 from pathfinding import pathfinding
-from dist import minDist
+from dist import *
 
 class Bot:
     pass
@@ -27,7 +27,9 @@ class RandomBot(Bot):
 			if (x.name == "Rimouski City Gang"):
 				us = x
 				break;
-		print(minDist([5,5], game))
+		print(minDistBurger([5,5], game))
+		print(minDistFries([5,5], game))
+		print(minDistHero([5,5], game))
 		dirs = ['Stay', 'North', 'South', 'East', 'West']
 		res = pathfinding(game.board, (us.pos["x"], us.pos["y"]), (1, 0))
 		return choice(dirs)

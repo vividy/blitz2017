@@ -4,14 +4,10 @@
 import sys
 import requests
 
-
-def minDist(pos, game):
+def minDistBurger(pos, game):
 	burger_loc = (-1, -1)
 	burger_dist = -1
-	fries_loc = (-1, -1)
-	fries_dist = -1
-	heroes_loc = (-1, -1)
-	heroes_dist = -1
+
 	for k, v in game.burger_locs:
 		if (burger_dist == -1):
 			burger_loc = (k, v)
@@ -19,6 +15,12 @@ def minDist(pos, game):
 		elif burger_dist > dist(pos, (k, v)):
 			burger_loc = (k, v)
 			burger_dist = dist(pos, (k, v))
+	return(burger_loc)
+
+def minDistFries(pos, game):
+	fries_loc = (-1, -1)
+	fries_dist = -1
+
 	for k, v in game.fries_locs:
 		if (fries_dist == -1):
 			fries_loc = (k, v)
@@ -26,6 +28,12 @@ def minDist(pos, game):
 		elif fries_dist > dist(pos, (k, v)):
 			fries_loc = (k, v)
 			fries_dist = dist(pos, (k, v))
+	return(fries_loc)
+
+def minDistHero(pos, game):
+	heroes_loc = (-1, -1)
+	heroes_dist = -1
+
 	for k, v in game.heroes_locs:
 		if (k != pos[0] & v != pos[1]):
 			if (heroes_dist == -1):
@@ -34,7 +42,7 @@ def minDist(pos, game):
 			elif heroes_dist > dist(pos, (k, v)):
 				heroes_loc = (k, v)
 				heroes_dist = dist(pos, (k, v))
-	return([burger_loc, fries_loc, heroes_loc])
+	return(heroes_loc)
 
 def dist(a, b):
 	return ((((b[0] - a[0])) * (b[0] - a[0])) + ((b[1] - a[1]) * (b[1] - a[1])))
