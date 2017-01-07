@@ -47,37 +47,36 @@ class RandomBot(Bot):
             burgerOk = us.burger >= customer.burger
             if friesOk and burgerOk:
                 self.going = pos
-            elif not friesOk:
-                min = None
-                dist = -1
-                for x, y in game.fries_locs:
-                    fries = game.board.tiles[x][y]
-                    tmp = ((x - ourPos[0]) ** 2) + ((y - ourPos[1]) ** 2)
-                    print(fries.hero_id, id, tmp, dist)
-                    if fries.hero_id != id and (dist == -1 or tmp < dist):
-                        dist = tmp
-                        min = (x, y)
-                print(min)
-                self.going = min
             else:
-                min = None
-                dist = -1
-                for x, y in game.burger_locs:
-                    burger = game.board.tiles[x][y]
-                    tmp = ((x - ourPos[0]) ** 2) + ((y - ourPos[1]) ** 2)
-                    if burger.hero_id != id and (dist == -1 or tmp < dist):
-                        dist = tmp
-                        min = (x, y)
-                self.going = min
+                minF = None
+                minB = None
+                distF = float('infinity')
+                distB = float('infinity')
+                if not friesOk:
+                    for x, y in game.fries_locs:
+                        fries = game.board.tiles[x][y]
+                        tmp = ((x - ourPos[0]) ** 2) + ((y - ourPos[1]) ** 2)
+                        print(fries.hero_id, id, tmp, distF)
+                        if fries.hero_id != id and tmp < distF:
+                            distF = tmp
+                            minF = (x, y)
+                if not burgerOk:
+                    for x, y in game.burger_locs:
+                        burger = game.board.tiles[x][y]
+                        tmp = ((x - ourPos[0]) ** 2) + ((y - ourPos[1]) ** 2)
+                        if burger.hero_id != id and tmp < distB:
+                            distB = tmp
+                            minF = (x, y)
+                self.going = (minF if distF < distB else minB)
 
         if self.going is None:
             return random_choice()
 
-        ret = pathfinding(game.board, ourPos, self.going)
+        ret = pathfinding(state['game']['board']['tiles'], game.board, ourPos, self.going)
         if ret is None:
             return random_choice()
         res = AIM[ret]
-        if (res[0] + ourPos[0], res[1] + ourPos[1]) == self.going:
+        if res[0] + ourPos[0] == self.going[0]  and res[1] + ourPos[1] == self.going[1]:
             self.going = None
         print(ret)
         return ret
@@ -85,6 +84,5 @@ class RandomBot(Bot):
     def move(self, state):
         try:
             return self.move_less_one(state)
-        except Exception as e:
-            print(e)
+        except :
             return random_choice()
