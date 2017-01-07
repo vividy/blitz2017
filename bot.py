@@ -30,11 +30,12 @@ class RandomBot(Bot):
         for x, y in game.customers_locs:
             customer = game.customers[i]
             pos = (x, y)
+            dist = -1
             tmp = (pos[0] - ourPos[0]) * (pos[1] - ourPos[1])
             if dist > tmp:
                 min = customer
                 dist = tmp
-        friesOk = us.frenchFries >= customer.french_fries
+        friesOk = us.fries >= customer.french_fries
         burgerOk = us.burger >= customer.burger
         if friesOk and burgerOk:
             self.going = pos
@@ -60,7 +61,6 @@ class RandomBot(Bot):
                     dist = tmp
                     min = (x, y)
             self.going = min
-            pass
 
         ret = pathfinding(game.board, ourPos, self.going)
         print(ret)
