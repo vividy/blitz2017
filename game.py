@@ -120,6 +120,8 @@ class Board:
 
 class Hero:
     def __init__(self, hero):
+        self.fries = hero['frenchFriesCount']
+        self.burger = hero['burgerCount']
         self.name = hero['name']
         self.pos = hero['pos']
         self.life = hero['life']
