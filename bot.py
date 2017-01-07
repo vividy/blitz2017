@@ -40,7 +40,7 @@ class RandomBot(Bot):
                 pos = (x, y)
                 dist = -1
                 tmp = ((pos[0] - ourPos[0]) ** 2) + ((pos[1] - ourPos[1]) ** 2)
-                if dist > tmp:
+                if dist > tmp and customer.fulfilled_orders == 0:
                     min = customer
                     dist = tmp
             friesOk = us.fries >= customer.french_fries
