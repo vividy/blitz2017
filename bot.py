@@ -66,7 +66,7 @@ class RandomBot(Bot):
                         tmp = ((x - ourPos[0]) ** 2) + ((y - ourPos[1]) ** 2)
                         if burger.hero_id != id and tmp < distB:
                             distB = tmp
-                            minF = (x, y)
+                            minB = (x, y)
                 self.going = (minF if distF < distB else minB)
 
         if self.going is None:
